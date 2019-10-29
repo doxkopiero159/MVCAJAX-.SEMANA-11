@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<h2>index</h2>
+<div class="col-md-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Please entre the details below</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group col-md-5">
+                <label> student name</label>
+                <input type="type" name="StudentName" id="StudentName" placeholder="Enter  Student  Name" required />
+            </div>
+            <div class="form-group col-md-5">
+                <label> sutudent Address</label>
+                <input type="type" name="StudentAddress" id="StudentAddress" placeholder="Enter  Student Address" required />
+            </div>
+            <div class="form-group col-md-1">
+                <div style="float:right; display:inline-block;">
+                    <input type="button" name="submitButton" value="Save" id="btnSave" class="btn btn-primary" />
+                </div>
+            </div>
+
+        </div>
+    </div><hr />
+          <table id="tblStudent" class="table table-bordered table-striped table-responsive table-hover ">
+              <thead>
+              <th align="left" class="producthh">
+                  ID
+              </th>
+              <th align="left" class="producthh">
+                  Student name
+              </th>
+              <th align="left" class="producthh">
+                  Studnet address
+              </th>
+              </thead>
+             
+          </table>
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            LoadData();
+            $("#btnSave").click(function () {
+                //alert(""),
+                var std = {};
+                std.studentName = $("#StudentName").val();
+                std.studentAddress = $("#StudentAddress").val();
+                $.ajax({
+
+                    type: "POST",
+                    url: '@Url.Action("createStudent")',
+                    data: '{std:' + JSON.stringify(std) + '}',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        LoadData();
+                    },
+                    error: function () {
+                        alert("error  while isnerting data");
+                    }
+                });
+                return false;
+
+
+            });
+
+        });
+
+        function LoadData() {
+            $("#tblStundent tbody  tr").remove();
+            $.ajax({
+                type: 'POST',
+                url:
+            })
+        }
+    </script>
+    }
+
